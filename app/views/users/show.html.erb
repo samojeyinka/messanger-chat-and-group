@@ -1,0 +1,12 @@
+<h1 class="text-white">Account</h1>
+<div class="user-profile">
+    <div class="user-pics">
+    <% if @user.avatar.attached? %>
+    <%= image_tag(@user.avatar , width:300)%>
+    <% else %>
+    <%= image_tag('avatar.png',width:300) %>
+    <%end%>
+    </div>
+    <h3 class="text-white">@<%= @user.username  %></h3>
+    
+</div>
