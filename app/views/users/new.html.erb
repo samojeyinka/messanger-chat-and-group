@@ -1,0 +1,54 @@
+<div class="w-[95%] h-[100vh] flex items-center flex-col justify-center relative">
+  <div class="sign_form w-[90%] md:w-[60%] lg:w-[40%] bg-[#1a1819] py-10 px-5 border-solid border-2 border-gray-800 rounded-lg">
+    
+    <ul class="text-white">
+      <% if @user.errors.any? %>
+      <div class="p-3 border-solid border-2 bg-red-400 border-red-800 rounded-lg">
+        <% @user.errors.full_messages.each do |msg| %>
+          <% if msg=="Username can't be blank" %>
+            <li>Please enter your username</li>
+            <% elsif msg=="Password confirmation doesn't match Password" %>
+              <li>Your password does not match</li>
+              <% elsif msg=="Username is too short (minimum is 6 characters)" %>
+                <li>Password should exceed 5 characters</li>
+                <% elsif msg=="Password can't be blank" %>
+                  <li>Please enter password</li>
+                  <% else %>
+                    <li>
+                      <%= msg %>
+                    </li>
+                    <% end %>
+                      <% end %>
+                    </div>
+                        <% end %>
+    </ul>
+
+    <h2 class="mt-1 text-center text-3xl font-bold text-white">
+      Signup
+    </h2>
+    <%= form_with( model: @user, data:{turbo: false}, local: true, class:"form_con flex flex-col") do |form| %>
+      <div class="input-box flex flex-col mt-4">
+        <%= form.label :username,class:"text-white font-semibold text-lg mb-3" %>
+          <%= form.text_field :username,class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2 border-gray-800 rounded-lg text-gray-200" %>
+      </div>
+      <div class="input-box flex flex-col mt-4">
+        <%= form.label :password, class:"text-white font-semibold text-lg mb-3" %>
+          <%= form.password_field :password, class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2 border-gray-800 rounded-lg text-gray-200" %>
+      </div>
+      <div class="input-box flex flex-col mt-4">
+      <%= form.label :Confirm_Password,class:"text-white font-semibold text-lg mb-3" %>
+        <%= form.password_field :password_confirmation,class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2 border-gray-800 rounded-lg text-white"  %>
+      </div>
+
+      <div class="input-box flex flex-col mt-4">
+          <%= form.submit "Sign Up", class:"text-white text-lg bg-blue-700 hover:bg-blue-900 font-semibold pt-3 pb-3 rounded-lg ease-out duration-300 cursor-pointer"%>
+        </div>
+            <% end %>
+
+            <div class="flex items-center mt-4">
+              <h4 class="text-white font-normal text-lg">Already have an account?</h4>
+              <%=link_to "Sign In" ,login_path,class:"text-blue-600 pl-2 font-bold text-lg" %>
+            </div>
+
+  </div>
+</div>

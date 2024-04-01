@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  root "chatroom#index"
   get "login" => "sessions#new"
+  get "signup" =>  "users#new"
+  resources :users, except: [:new]
 end
