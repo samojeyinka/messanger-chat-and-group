@@ -32,14 +32,22 @@
           <%= form.text_field :username,class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2 border-gray-800 rounded-lg text-gray-200" %>
       </div>
       <div class="input-box flex flex-col mt-4">
-        <%= form.label :password, class:"text-white font-semibold text-lg mb-3" %>
-          <%= form.password_field :password, class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2 border-gray-800 rounded-lg text-gray-200" %>
+        <%= form.label :password, class:"text-white font-semibold text-lg mb-3", id:"p-input" %>
+        <%= form.password_field :password, class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2 border-gray-800 rounded-lg text-gray-200 password-field" %>
+        <!-- <i class="fa fa-eye" aria-hidden="true" onclick="togglePasswordVisibility()"></i> -->
       </div>
+
+    
+
       <div class="input-box flex flex-col mt-4">
       <%= form.label :Confirm_Password,class:"text-white font-semibold text-lg mb-3" %>
-        <%= form.password_field :password_confirmation,class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2 border-gray-800 rounded-lg text-white"  %>
+        <%= form.password_field :password_confirmation,class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2 border-gray-800 rounded-lg text-white password-field"   %>
       </div>
-      <!-- dgdgd -->
+    
+      <div class="input-box flex items-center mt-4">
+        <input type="checkbox" name="pwd" id="pwd" class="mr-2  w-4 h-4 rounded-lg checked:bg-blue-500 focus:outline-none focus:ring-opacity-50 cursor-pointer" onclick="togglePasswordVisibility()"/>
+        <label for="pwd" class="text-white text-lg font-semibold">Show password</label>
+      </div>
 
       <div class="input-box flex flex-col mt-3">
         <div class="mt-2 flex items-center">
@@ -68,3 +76,18 @@
 
   </div>
 </div>
+
+
+<script>
+  function togglePasswordVisibility() {
+    var passwordFields = document.querySelectorAll(".password-field");
+
+    passwordFields.forEach(function(field) {
+      if (field.type === "password") {
+        field.type = "text";
+      } else {
+        field.type = "password";
+      }
+    });
+  }
+</script>
