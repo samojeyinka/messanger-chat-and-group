@@ -21,7 +21,7 @@ def create
     @user = User.new(user_params)
     if @user.save
         flash[:notice] = "User created successfully"
-
+        redirect_to user_by_username_path(username: @user.username)
     else
       render 'new'
     end
@@ -60,7 +60,7 @@ def user_params
 end
 
 def find_user
-    @user = User.find(params[:id]) 
+    @user = User.find_by(username: params[:username]) 
 end
 
 end

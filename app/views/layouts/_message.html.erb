@@ -1,0 +1,63 @@
+<style>
+    .skill-text {
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .skill-layout {
+        width: 100%;
+        height: 6px;
+        border-radius: 7px;
+    }
+
+
+    .skill-filled {
+        width: 100%;
+        height: 100%;
+        border-radius: 7px;
+        display: block;
+        position: relative;
+        animation: skillBar 1.5s ease-in-out forwards;
+
+    }
+
+
+    @keyframes skillBar {
+        0% {
+            width: 0;
+
+        }
+
+    }
+</style>
+
+<div class="w-[95%]">
+    <% flash.each do |name, msg|%>
+        <div class="w-[18rem] inline-block bg-white pt-3 m-2 rounded absolute top-2 left-3" id="msgblock">
+            <p class="message p-2 font-semibold text-black font-xl ">
+                <i class="fa fa-check-circle mr-1 <%= name == "alert" ? "text-red-500" : "text-green-500" %>"
+                    aria-hidden="true"></i>
+                <%=msg%>
+            </p>
+            <div class="skill-box mt-2">
+                <div class="skill-layout">
+                    <div class="skill-filled <%= name == "alert" ? "bg-red-500" : "bg-green-500" %>">
+                    </div>
+                </div>
+            </div>
+
+            <% end %>
+        </div>
+
+
+
+
+
+
+
+        <script>
+            setTimeout(() => {
+                document.getElementById("msgblock").style.display = 'none'
+            }, 1500)
+        </script>
