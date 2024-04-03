@@ -1,0 +1,7 @@
+<h1 class="text-white">Groups</h1>
+
+<% @groups.each do |grp| %>
+<div class="flex text-white">
+<b><%= link_to grp.name, group_path(grp) %></b>
+</div>
+<% end %>

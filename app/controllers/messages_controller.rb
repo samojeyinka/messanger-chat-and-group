@@ -1,23 +1,21 @@
 class MessagesController < ApplicationController
-    before_action :require_user
-def index
-    @message = Message.new
-    @messages = Message.all
-end
+  def create
+    @group = Group.find(params[:group_id]);
+      @message = @group.messages.build(message_params)
+      @message.user = current_user
+      if @message.save
+        redirect_to @group, notice: 'Message sent successfully.'
+      else
+        @messages = @group.messages
+        render 'groups/show'
+      end
+  end
 
-def create
-    message = current_user.messages.build(message_params)
-    message.user = current_user
-    if message.save
-        redirect_to messages_path
-    end
-end
+  private
 
-private 
-
- def message_params
+  def message_params
     params.require(:message).permit(:body)
- 
- end
-
+  end
 end
+
+
