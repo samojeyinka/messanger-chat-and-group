@@ -1,0 +1,58 @@
+<div class="w-[95%] h-[100vh] flex items-center flex-col justify-center relative">
+    <div
+        class="sign_form w-[90%] md:w-[60%] lg:w-[40%] bg-[#1a1819] py-10 px-5 border-solid border-2 border-gray-800 rounded-lg">
+
+    <%= form_with( model: @user, data:{turbo: false}, local: true, class:"form_con flex flex-col") do |form| %>
+    <div class="grid grid-cols-2 gap-4">
+    <div class="input-box flex flex-col mt-4">
+                <%= form.text_field :username, placeholder:"Enter new username", class:"text-gray-300 bg-[#1c1c1c] p-3 outline-none border-solid border-2
+                    border-gray-800 rounded-lg text-gray-200" %>
+        </div>
+        <div class="input-box flex flex-col mt-4">
+                <%= form.password_field :password, placeholder:"Enter new password", class:"text-gray-300 bg-[#1c1c1c] p-3 outline-none border-solid border-2
+                    border-gray-800 rounded-lg text-gray-200 password-field" %>
+        </div>
+
+
+
+        <div class="input-box flex flex-col mt-4">
+                <%= form.password_field :password_confirmation, placeholder:"Confirm new password", class:"text-gray-300 bg-[#1c1c1c] p-3 outline-none border-solid
+                    border-2 border-gray-800 rounded-lg text-white password-field" %>
+        </div>
+
+
+        <div class="input-box flex flex-col mt-3">
+            <div class="mt-2 flex items-center">
+                <%= image_tag("avatar.png",class:"w-[35px] mr-2") %>
+                    <label htmlFor="file-input"
+                        className="ml-5 flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                        <span
+                            class="bg-[#1c1c1c] text-white py-1.5 px-1 border-solid border-2 border-gray-800 rounded-lg cursor-pointer">Upload
+                            image</span>
+                        <%= form.file_field :avatar,class:"hidden"%>
+                    </label>
+            </div>
+        </div>
+
+        <div class="input-box flex items-center">
+            <input type="checkbox" name="pwd" id="pwd"
+                class="mr-2  w-4 h-4 rounded-lg checked:bg-blue-500 focus:outline-none focus:ring-opacity-50 cursor-pointer"
+                onclick="togglePasswordVisibility()" />
+            <label for="pwd" class="text-white text-lg font-semibold">Show password</label>
+        </div>
+        </div>  
+
+
+
+        <div class="input-box flex flex-col mt-4">
+            <%= form.submit "Update" , class:"text-white text-lg bg-blue-700 hover:bg-blue-900 font-semibold
+                pt-3 pb-3 rounded-lg ease-out duration-300 cursor-pointer"%>
+        </div>
+        <% end %>
+
+            <div class="flex m-auto items-center mt-6">
+                <h4 class="text-white font-normal text-lg">Go back to</h4>
+                <%=link_to "Profile",user_path(@user), class:"text-blue-600 pl-2 font-bold text-lg" %>
+            </div>
+</div>
+</div>  

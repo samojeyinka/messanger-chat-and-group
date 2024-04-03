@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       if user && user.authenticate(params[:session][:password])
         session[:user_id] = user.id
         flash[:notice] = "Signed in successfully"
-        redirect_to user_by_username_path(username: user.username)
+        redirect_to user
       else
         flash.now[:alert] = "Invalid signin credentials"
         render 'new'

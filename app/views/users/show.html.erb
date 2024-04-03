@@ -1,12 +1,77 @@
-<h1 class="text-white">Account</h1>
-<div class="user-profile">
-    <div class="user-pics">
-    <% if @user.avatar.attached? %>
-    <%= image_tag(@user.avatar , width:300)%>
-    <% else %>
-    <%= image_tag('avatar.png',width:300) %>
-    <%end%>
+<div class="w-[95%] h-[100vh] flex items-center flex-col justify-center relative m-auto">
+    <div
+        class="sign_form w-[90%] md:w-[60%] lg:w-[44%] bg-[#1a1819] py-10 px-5 border-solid border-2 border-gray-800 rounded-lg m-auto">
+
+
+        <h2 class="mt-1 text-center text-3xl font-bold text-white">
+            Profile
+        </h2>
+        <p class="mt-1 text-center text-[1.1rem] font-normal text-white">Welcome to your personal profile</p>
+        <div class="w-[100%] flex flex-col py-8">
+            <div class="m-auto w-[4rem] h-[4rem] rounded-full overflow-hidden">
+                <% if @user.avatar.attached? %>
+                    <%= image_tag(@user.avatar , class:"w-full h-full")%>
+                        <% else %>
+                            <%= image_tag('avatar.png' , class:"w-full h-full") %>
+                                <%end%>
+            </div>
+            
+        
     </div>
-    <h3 class="text-white">@<%= @user.username  %></h3>
-    
+    <div class="w-auto flex items-center justify-center mb-4">
+    <h2 class="p-1 text-gray-100 text-xl font-bold border-solid border-2 border-gray-800 rounded-lg">@<%= @user.username %></h2>
+    <div class="ml-3 flex items-center">
+    <i class="fa fa-sign-out text-blue-500" aria-hidden="true"></i>
+    <span><%= link_to 'Logout', signout_path,
+     data:{turbo_method: :delete, turbo_confirm: "Click ok to continue to logout"},class:"ml-1 text-blue-500" %></span>
+    </div>
 </div>
+    <!-- nav links -->
+
+    <div class="w-[90%] md:w-full grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-0 m-auto">
+        <div class="link flex items-center">
+            <%= link_to root_path,class:"text-gray-100" do %>
+            <i class="fa fa-comments ml-1" aria-hidden="true"></i>
+            <%="Chats" %>
+            <% end %>
+        </div>
+        <div class="link flex items-center">
+          <%= link_to root_path,class:"text-gray-100" do %>
+          <i class="fa fa-users ml-1" aria-hidden="true"></i>
+          <%="Groups" %>
+          <% end %>
+      </div>
+      <div class="link flex items-center">
+        <%= link_to edit_user_path(@user),class:"text-gray-100" do %>
+        <i class="fa fa-pencil-square" aria-hidden="true"></i>
+        <%="Edit profile" %>
+        <% end %>
+    </div>
+
+    <div class="link flex items-center">
+      <%= link_to user_path(@user),data:{turbo_method: :delete, turbo_confirm: "Click ok to continue"},class:"text-red-500 " do %>
+      <i class="fa fa-trash" aria-hidden="true"></i>
+      <%="Delete account" %>
+      <% end %>
+  </div>
+
+    </div>
+
+    </div>
+</div>
+
+
+
+<script>
+  function togglePasswordVisibility() {
+    var passwordFields = document.querySelectorAll(".password-field");
+
+    passwordFields.forEach(function(field) {
+      if (field.type === "password") {
+        field.type = "text";
+      } else {
+        field.type = "password";
+      }
+    });
+  }
+</script>
