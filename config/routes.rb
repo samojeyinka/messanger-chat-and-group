@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   delete "signout" => "sessions#destroy"
   get "signup" =>  "users#new"
   resources :users, except: [:new]
- 
+  resources :messages
 
 
 end
