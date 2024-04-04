@@ -1,1 +1,8 @@
-<h1>Users</h1>
+<h1 class="text-white">Users</h1>
+
+
+<% @users.each do |u| %>
+<div class="flex text-white">
+<b><%= link_to u.username, user_path(u) %></b>
+</div>
+<% end %>
