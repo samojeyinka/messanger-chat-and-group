@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+ *{
+    color: white;
+ }
+
+ /* The views/messages/_messages.html.erb */
+ .message-box {
+   width: fit-content;
+   max-width: 40%;
+   padding: 5px;
+   border-radius: 10px;
+   margin-bottom: 10px;
+   background-color: #555555 ;
+   padding: 10px
+ }
+ 

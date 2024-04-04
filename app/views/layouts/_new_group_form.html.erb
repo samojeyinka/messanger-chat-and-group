@@ -1,0 +1,4 @@
+<%= form_with(model: @group, remote: true, class: "flex" ) do |f| %>
+  <%= f.text_field :name, class: "text-red-500 form-control", autocomplete: 'off' %>
+  <%= f.submit data: { disable_with: false } %>
+<% end %>

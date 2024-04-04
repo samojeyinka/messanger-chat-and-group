@@ -4,5 +4,6 @@
 <% @users.each do |u| %>
 <div class="flex text-white">
 <b><%= link_to u.username, user_path(u) %></b>
+<%= button_to "Chat", start_chat_path(u), method: :post, class: "ml-2 text-blue-500", data: { confirm: 'Are you sure you want to start a chat with this user?' } %>
 </div>
 <% end %>

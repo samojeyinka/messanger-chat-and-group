@@ -1,21 +1,12 @@
 class MessagesController < ApplicationController
-  def create
-    @group = Group.find(params[:group_id]);
-      @message = @group.messages.build(message_params)
-      @message.user = current_user
-      if @message.save
-        redirect_to @group, notice: 'Message sent successfully.'
-      else
-        @messages = @group.messages
-        render 'groups/show'
+    def create
+        @current_user = current_user
+        @message = @current_user.messages.create(body: msg_params[:body], group_id: params[:group_id])
       end
-  end
-
-  private
-
-  def message_params
-    params.require(:message).permit(:body)
-  end
+    
+      private
+    
+      def msg_params
+        params.require(:message).permit(:body)
+      end
 end
-
-

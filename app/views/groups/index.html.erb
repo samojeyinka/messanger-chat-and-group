@@ -1,7 +1,27 @@
-<h1 class="text-white">Groups</h1>
+<div class="container">
+  <h5> Hi <%= @current_user.username %>
+  </h5>
+  <h4> Users </h4>
+  <%= turbo_stream_from "users" %>
+    <div id="users">
+      <%= render @users %>
+    </div>
+    <h4> Groups </h4>
+    <%= turbo_stream_from "groups" %>
+    <div id="groups">
+      <%= render @groups %>
+    </div>
+    <%= render partial: "layouts/new_group_form" %>
 
-<% @groups.each do |grp| %>
-<div class="flex text-white">
-<b><%= link_to grp.name, group_path(grp) %></b>
+    <div class="col-md-10 bg-dark text-light">
+      <% if @single_group %>
+        <h4 class="text-center"> <%= @single_group.name %> </h4>
+        <%= turbo_stream_from @single_group %>
+<div id="messages">
+  <%= render @messages %>
 </div>
-<% end %>
+<%= render partial: 'layouts/new_message_form' %>
+      <% end %>
+    </div>
+    
+</div>

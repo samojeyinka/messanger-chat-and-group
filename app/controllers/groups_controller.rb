@@ -1,32 +1,26 @@
 class GroupsController < ApplicationController
-    def index
-      @groups = Group.all
-    end
-  
-    def new
-      @group = Group.new
-    end
-  
-    def create
-      @group = Group.new(group_params)
-      if @group.save
-        redirect_to @group, notice: 'Group created successfully.'
-      else
-        render :new
-      end
-    end
-  
-    def show
-      @group = Group.find(params[:id])
-      @messages = @group.messages
-      
-    end
+def index
+    @current_user = current_user
+    redirect_to '/signin' unless @current_user
+    @groups = Group.public_groups
+    @users = User.all_except(@current_user)
+    @group = Group.new
+end
 
-  
-    private
-  
-    def group_params
-      params.require(:group).permit(:name)
-    end
+def create
+    @group = Group.create(name: params["group"]["name"])
   end
+
+  def show
+    @current_user = current_user
+    @single_group = Group.find(params[:id])
+    @groups = Group.public_groups
+    @users = User.all_except(@current_user)
+    @group = Group.new
+    @message = Message.new
+    @messages = @single_group.messages
   
+    render "index"
+  end
+
+end
