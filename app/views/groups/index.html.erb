@@ -15,7 +15,8 @@
 
     <div class="col-md-10 bg-dark text-light">
       <% if @single_group %>
-        <h4 class="text-center"> <%= @single_group.name %> </h4>
+        <!-- <h4 class="text-center"> <%= @single_group.name %> </h4> -->
+        <h4 class="text-center"> <%= @user&.username || @single_group.name %> </h4>
         <%= turbo_stream_from @single_group %>
 <div id="messages">
   <%= render @messages %>

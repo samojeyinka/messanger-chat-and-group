@@ -8,7 +8,16 @@ end
 
 #each user show route
 def show
-  
+    @current_user = current_user
+    @groups = Group.public_groups
+    @users = User.all_except(@current_user)
+    @group = Group.new
+    @message = Message.new
+    @group_name = get_name(@user, @current_user)
+    @single_group = Group.where(name: @group_name).first || Group.create_private_group([@user, @current_user], @group_name)
+    @messages = @single_group.messages
+
+    render "groups/index"
 end
 
 #signup route or new user route
@@ -66,5 +75,10 @@ end
 def find_user
     @user = User.find(params[:id]) 
 end
+
+def get_name(user1, user2)
+    users = [user1, user2].sort
+    "private_#{users[0].id}_#{users[1].id}"
+  end
 
 end
