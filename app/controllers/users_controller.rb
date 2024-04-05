@@ -16,6 +16,8 @@ def show
     @group_name = get_name(@user, @current_user)
     @single_group = Group.where(name: @group_name).first || Group.create_private_group([@user, @current_user], @group_name)
     @messages = @single_group.messages
+    @online_users = User.all_except(@current_user).take(7)
+    @pinned_users = User.all_except(@current_user).take(3)
 
     render "groups/index"
 end

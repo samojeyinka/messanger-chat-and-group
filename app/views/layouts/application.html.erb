@@ -14,12 +14,17 @@
   
      <style> 
       <%= ".msg-#{current_user&.id}" %> {
-      background-color: #007bff !important;
-      padding: 10px;
+      
+      background-color: blue !important;
+      padding: 10px 20px;
+      border-radius:50px 5px 50px 35px;
       }
+     
+
       <%= ".cont-#{current_user&.id}" %> {
       display: flex;
-      justify-content: flex-end
+      justify-content: flex-end;
+
       }
     </style>
 
@@ -27,8 +32,7 @@
   </head>
 
   <body class="w-full m-auto bg-[#121214]">
-    <%= render "layouts/message" %>
+    <%= render "layouts/message" %>  
     <%= yield %>
-    
   </body>
 </html>

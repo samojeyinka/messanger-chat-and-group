@@ -14,18 +14,43 @@
  *= require_self
  */
 
+ 
  *{
     color: white;
  }
 
+ input{
+  outline: none;
+ }
  /* The views/messages/_messages.html.erb */
  .message-box {
    width: fit-content;
-   max-width: 40%;
-   padding: 5px;
-   border-radius: 10px;
+   padding: 10px 20px;
+   border-radius:35px 50px 50px 5px;
    margin-bottom: 10px;
-   background-color: #555555 ;
-   padding: 10px
+   background:#252728; 
  }
  
+
+ .message-box p{
+  text-wrap: wrap;
+  color:#fff;
+  opacity: .8;
+ }
+
+
+ ::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background:inherit;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: gray;
+  height: 50%;
+  border-radius: 2rem;
+}
