@@ -106,37 +106,75 @@
         </div>
         </div>
       </div>
+
+      <!-- Groups -->
+      <div class="groups py-2 px-6">
+        <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <i class="fa fa-users text-[.8rem] font-semibold text-white" aria-hidden="true"></i>
+          <h3 class="text-[1rem] font-semibold ml-1.5">Groups</h3>
+        </div>
+        <div class="flex items-center cursor-pointer" onclick="openModal()">
+          <i class="fa fa-plus text-[.8rem] font-semibold text-white" aria-hidden="true"></i>
+          <h3 class="text-[1rem] font-semibold ml-1.5 mr-1">Create group</h3>
+        </div>
+      </div>
+        <div class="pinned-chats pt-4">
+          <%= turbo_stream_from "groups" %>
+          <div id="groups" class="grid grid-col-1 gap-4">
+            <%= render @groups %>
+          </div>
+          </div>
+        </div>
     </div>
 
     <!-- The chatting section -->
 
     <div class="w-[100%] h-[100vh] max-h[100vh] bg-[#1a1819] px-10 relative">
       <% if @single_group %>
-        <div class="w-[100%] flex justify-between pt-3 pb-8">
-          <div class="flex ">
-            <div class="w-[3rem] h-[3rem] rounded-full overflow-hidden">
-                <% if @user&.avatar.attached? %>
-                    <%= image_tag(@user&.avatar , class:"w-full h-full")%>
-                        <% else %>
-                            <%= image_tag('avatar.png' , class:"w-full h-full") %>
-                                <%end%>
-            </div>
-            <div class="flex flex-col ml-3">
-                <h4 class="text-gray-50 font-medium text-[1.05rem]">
-                    <%= link_to @user&.username, @user %>
-                </h4>
-                <p class="text-gray-300 font-normal text-[.9rem] mt-2">
-                    Joined on <%= @user&.created_at.strftime("%b %d") %>
-                </p>
-            </div>
-        </div>
-        <div class="search_and_ellipsis flex items-center">
-          <i class="fa fa-search mr-7 cursor-pointer text-gray-300 p-2 bg-[#252728] rounded-[50%]" aria-hidden="true"></i>
-          <i class="fa fa-video-camera mr-7 cursor-pointer text-gray-300 p-2 bg-[#252728] rounded-[50%]" aria-hidden="true"></i>
-          <i class="fa fa-phone mr-7 cursor-pointer text-gray-300 p-2 bg-[#252728] rounded-[50%]" aria-hidden="true"></i>
-          <i class="fa fa-ellipsis-v cursor-pointer text-gray-300 px-3.5 py-2 bg-[#252728] rounded-[50%]" aria-hidden="true"></i>
-        </div>
-        </div>
+      <div class="w-[100%] flex justify-between pt-3 pb-8">
+        <div class="flex ">
+       
+            <!-- here -->
+            <% if @user&.avatar.present? %>
+    <div class="w-[3rem] h-[3rem] rounded-full overflow-hidden">
+              <% if @user&.avatar.attached? %>
+                  <%= image_tag(@user&.avatar , class:"w-full h-full")%>
+                      <% else %>
+                          <%= image_tag('avatar.png' , class:"w-full h-full") %>
+                              <%end%>
+          </div>
+          <%  end %>
+
+            <!-- here -->
+         
+          <div class="flex flex-col ml-3">
+              <h4 class="text-gray-50 font-medium text-[1.05rem]">
+                  <%= @user&.username || @single_group.name %>
+              </h4>
+              <p class="text-gray-300 font-normal text-[.9rem] mt-2">
+                <% if @user&.created_at.present? %>
+                  Joined on <%= @user&.created_at.strftime("%b %d") %>
+                  <% else %>
+                  Created on <%= @single_group.created_at.strftime("%b %d") %>
+                  <% end %>
+              </p>
+          </div>
+      </div>
+      <div class="search_and_ellipsis flex items-center">
+        <i class="fa fa-search mr-7 cursor-pointer text-gray-300 p-2 bg-[#252728] rounded-[50%]" aria-hidden="true"></i>
+        <i class="fa fa-video-camera mr-7 cursor-pointer text-gray-300 p-2 bg-[#252728] rounded-[50%]" aria-hidden="true"></i>
+        <i class="fa fa-phone mr-7 cursor-pointer text-gray-300 p-2 bg-[#252728] rounded-[50%]" aria-hidden="true"></i>
+        <% unless @single_group.is_private %>
+        <i class="fa fa-exclamation-circle mr-7 cursor-pointer text-gray-300 p-2 bg-[#252728] rounded-[50%]" aria-hidden="true"></i>
+        <% end %>
+        <i class="fa fa-ellipsis-v cursor-pointer text-gray-300 px-3.5 py-2 bg-[#252728] rounded-[50%]" aria-hidden="true"></i>
+      </div>
+      </div>
+      
+   
+
+  
        
         <%= turbo_stream_from @single_group %>
           <div id="messages" class="overflow-auto max-h-[75%] px-1 overflow-auto">
@@ -150,25 +188,19 @@
 
     </div>  
 
-    
-      <!-- <div class="container">
-    <h5> Hi <%= @current_user.username %>
-    </h5>
-    <h4> Users </h4>
-     <%= turbo_stream_from "users" %> 
-      <div id="users">
-        <%= render @users %>
-      </div>
-       <h4> Groups </h4>
-      <%= turbo_stream_from "groups" %>
-        <div id="groups">
-          <%= render @groups %>
-        </div>
-        <%= render partial: "layouts/new_group_form" %> 
 
-         
-
-  </div>
-</div>  -->
+<div id="modal" class="w-[100%] h-[100vh] bg-[#00000093] fixed top-0 left-0" style="display:none">
+  <%= render partial: "layouts/new_group_form" %>
+  <button id="cancel" onclick="closeModal()">Cancel</button>
+</div>
 
 
+<script>
+  const modal = document.getElementById("modal");
+  function openModal(){
+    modal.style.display = "inherit";
+  }
+  function closeModal(){
+    modal.style.display = "none";
+  }
+</script>

@@ -23,7 +23,7 @@ def create
     @messages = @single_group.messages
     @online_users = User.all_except(@current_user).take(7)
     @pinned_users = User.all_except(@current_user).take(3)
-  
+   
     render "index"
   end
 
