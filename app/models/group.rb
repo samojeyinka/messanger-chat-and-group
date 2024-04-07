@@ -3,9 +3,10 @@ class Group < ApplicationRecord
     scope :public_groups, -> { where(is_private: false) }
     after_create_commit {broadcast_append_to "groups"}
     has_many :messages
-
+    has_one_attached :coverPhoto
     has_many :participants, dependent: :destroy
     after_create_commit { broadcast_if_public }
+
 
     def broadcast_if_public
         broadcast_append_to "groups" unless self.is_private

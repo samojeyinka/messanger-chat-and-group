@@ -19,8 +19,9 @@
     color: white;
  }
 
- input{
+ input,textarea{
   outline: none;
+  color: #efefef;
  }
  /* The views/messages/_messages.html.erb */
  .message-box {
@@ -53,5 +54,6 @@
   background: gray;
   height: 50%;
   border-radius: 2rem;
-  color: #00000063;
+  color: #000000c6;
 }
+

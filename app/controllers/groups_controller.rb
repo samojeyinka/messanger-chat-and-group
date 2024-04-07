@@ -10,7 +10,9 @@ def index
 end
 
 def create
-    @group = Group.create(name: params["group"]["name"])
+    @group = Group.create(name: params["group"]["name"],description: params["group"]["description"],coverPhoto: params["group"]["coverPhoto"])
+      flash[:notice] = "Group created successfully"
+      redirect_to @group
   end
 
   def show

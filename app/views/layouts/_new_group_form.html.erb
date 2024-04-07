@@ -1,5 +1,47 @@
-<%= form_with(model: @group, remote: true, class: "flex" ) do |f| %>
-  <%= f.text_field :name, class: "text-red-500 form-control", autocomplete: 'off' %>
-  <%= f.submit data: { disable_with: false } %>
-<% end %>
+<div class="w-[90%] md:w-[60%] lg:w-[40%] bg-[#1a1819] py-10 px-5 border-solid border-2 border-gray-800 rounded-lg">
 
+  <ul class="text-white">
+    <% if @group.errors.any? %>
+      <div class="p-3 border-solid border-2 bg-red-400 border-red-800 rounded-lg">
+        <% @group.errors.full_messages.each do |msg| %>
+          <%= msg %>
+          <% end %>
+      </div>
+      <% end %>
+  </ul>
+
+  <h2 class="mt-1 text-center text-3xl font-bold text-white">
+    Create a community
+  </h2>
+  <%= form_with(model: @group, remote: true, class: "flex flex-col mt-2" ) do |form| %>
+    <div class="input-box flex flex-col mt-4">
+      <%= form.label :Group_name,class:"text-white font-semibold text-lg mb-3" %>
+        <%= form.text_field :name,autocomplete: 'off' ,class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2
+          border-gray-800 rounded-lg text-gray-200" %>
+    </div>
+
+    <div class="input-box flex flex-col mt-4">
+      <label class="text-white font-semibold text-lg mb-3">Group description (Optional)</label>
+      <%= form.text_area :description,autocomplete: 'off' ,class:"bg-[#1c1c1c] p-3 h-[8rem] max-h-[8rem] outline-none
+        border-solid border-2 border-gray-800 rounded-lg text-gray-200" %>
+    </div>
+
+    <div class="input-box flex flex-col mt-3">
+      <div class="mt-2 flex items-center">
+        <%= image_tag("avatar.png",class:"w-[35px] mr-2") %>
+          <label htmlFor="file-input"
+            className="ml-5 flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+            <span
+              class="bg-[#1c1c1c] text-white py-1.5 px-1 border-solid border-2 border-gray-800 rounded-lg cursor-pointer">Upload
+              image</span>
+            <%= form.file_field :coverPhoto,class:"hidden"%>
+          </label>
+      </div>
+    </div>
+
+    <div class="input-box flex flex-col mt-4">
+      <%= form.submit "Create" , data: { disable_with: false }, class:"text-white text-lg bg-blue-700 hover:bg-blue-900
+        font-semibold pt-3 pb-3 rounded-lg ease-out duration-300 cursor-pointer"%>
+    </div>
+    <% end %>
+</div>

@@ -7,7 +7,7 @@
 <div class="form-group msg-form w-full ml-4">
   <%= form_with(model: [@single_group,@message], remote: true, class: "flex w-[100%]",
   data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }) do |f| %>
-      <%= f.text_field :body, id: 'chat-text', class: "text-black w-[95%] bg-[#252728] text-gray-50 p-1 border-solid border-2 border-gray-800 rounded-lg", autocomplete: 'off' %>
+      <%= f.text_field :body, id: 'chat-text', class: "w-[95%] bg-[#252728] text-gray-50 p-1 border-solid border-2 border-gray-800 rounded-lg", autocomplete: 'off' %>
       <!-- <%= f.submit "send", data: { disable_with: false }, class: "btn btn-primary" %> -->
       <%= f.button '<i class="fa fa-paper-plane ml-7 cursor-pointer text-gray-300 p-3 bg-blue-700 rounded-lg" aria-hidden="true"></i>'.html_safe %>
       <% end %>
