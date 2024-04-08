@@ -12,7 +12,7 @@
             <%= link_to user.username, user %>
         </h4>
         <p class="text-gray-300 font-normal text-[.9rem] mt-2">
-            <%= 'Have you called them' %>
+           <%= truncate(user.messages.last&.body,length:17) || 'Start conversation' %>
         </p>
     </div>
 </div>
