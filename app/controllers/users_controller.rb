@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
-    before_action :find_user, only: [:show,:edit,:update, :destroy]
+    before_action :find_user, only: [:profile,:show,:edit,:update, :destroy]
 
 #users lists
 def index
     @users = User.all
+end
+
+def profile
 end
 
 #each user show route
@@ -33,7 +36,7 @@ def create
     if @user.save
         session[:user_id] = @user.id
         flash[:notice] = "User created successfully"
-        redirect_to @user
+        redirect_to root_path
     else
       render 'new'
     end

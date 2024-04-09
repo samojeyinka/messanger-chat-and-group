@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   delete "signout" => "sessions#destroy"
   get "signup" =>  "users#new"
   resources :users, except: [:new]
+  get 'profile/:id', to: 'users#profile', as: 'profile'
+
+  
   resources :groups do
     resources :messages
   end

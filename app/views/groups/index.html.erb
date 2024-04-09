@@ -9,8 +9,9 @@
 
       <div class="grid gap-[2rem] mt-4 text-xl">
         <%= link_to root_path do %>
-          <i class="fa fa-commenting text-white bg-blue-700 p-2 rounded-md" aria-hidden="true"></i>
+          <i data-tooltip-target="tooltip-default" type="button" class="fa fa-commenting text-white bg-blue-700 p-2 rounded-md" aria-hidden="true"></i>
           <% end %>
+          
 
             <%= link_to root_path do %>
               <i class="fa fa-users text-white hover:bg-blue-700 p-2 rounded-md" aria-hidden="true"></i>
@@ -36,10 +37,12 @@
     </div>
 
     <div class="w-[3rem] h-[3rem] rounded-full border-solid border-2 border-gray-200 overflow-hidden">
+      <%= link_to profile_path(current_user) do %>
       <% if current_user.avatar.attached? %>
         <%= image_tag(current_user.avatar , class:"w-full h-full")%>
           <% else %>
             <%= image_tag('avatar.png' , class:"w-full h-full") %>
+              <%end%>
               <%end%>
     </div>
 
@@ -54,11 +57,27 @@
             <i class="fa fa-angle-down ml-4 text-gray-300 text-[.8rem] mt-1.5 cursor-pointer" aria-hidden="true"></i>
           </div>
           <div class="search_and_ellipsis flex items-center">
-            <i class="fa fa-search mr-7 cursor-pointer text-gray-300 " aria-hidden="true"></i>
+            <i class="fa fa-search mr-7 cursor-pointer text-gray-300"
+            onclick="openSearchBar()"
+             aria-hidden="true"></i>
             <i class="fa fa-ellipsis-v cursor-pointer text-gray-300" aria-hidden="true"></i>
           </div>
         </div>
     </div>
+
+    <!-- search bar -->
+    <div class="bg-[#1a1819] flex flex-col px-2 py-4 relative" id="searchBar" style="display:none">
+      <%= form_with url:groups_path, method: :get do |f| %>
+      <%= f.text_field :query,class:"bg-[#252728]   p-2 outline-none border-solid border-2 border-gray-800 rounded-lg text-gray-200 password-field" %>
+      <%= f.submit "Search",class:"text-white text-lg p-1 bg-blue-700 hover:bg-blue-900 font-normal rounded-lg ease-out duration-300 cursor-pointer" %>
+      <% end %>
+      <%= form_with url:groups_path, method: :get do |f| %>
+      <!-- <%= f.submit "Clear" %> -->
+      <%= f.button '<i class="fa fa-times ml-7 cursor-pointer text-gray-300
+       p-1 bg-red-500 rounded-[50%] absolute top-1 right-1" aria-hidden="true" id="closeSearchBar" onclick="closeSearchBar()"></i>'.html_safe %>
+      <% end %>
+    </div>
+
     <div class="online-now py-5 px-6">
       <div class="flex items-center">
         <i class="fa fa-dot-circle text-[.8rem] font-semibold text-white" aria-hidden="true"></i>
@@ -67,7 +86,7 @@
       <div class="overflow-auto pt-3.5 pb-1">
         <div class="w-auto online-users flex justify-between items-center">
           <% @online_users.each do |user| %>
-            <div class="min-w-[3rem] min-h-[3rem] rounded-full border-solid border-2 border-gray-200 overflow-hidden mr-5">
+            <div class="min-w-[3rem] min-h-[3rem] rounded-full border-solid border-2 border-green-500 overflow-hidden mr-5">
               <% if user.avatar.attached? %>
                 <%= image_tag(user.avatar , class:"w-[3rem] h-[3rem]")%>
                   <% else %>
@@ -217,4 +236,18 @@
     modal.style.display = "none";
   }
   cancelButton.addEventListener("click", closeModal);
+
+
+  const searchBar = document.getElementById("searchBar");
+
+
+  function openSearchBar(){
+    searchBar.style.display = "block";
+  }
+  function closeSearchBar (){
+    searchBar.style.display = "none";
+  }
+
+  closeSearchBar.addEventListener("click", closeSearchBar);
+
 </script>
