@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
     before_action :find_user, only: [:profile,:show,:edit,:update, :destroy]
-
+    before_action :require_user, only: [:profile]
+    before_action :require_exact_user, only: [:edit, :update, :destroy]
 #users lists
 def index
-    @users = User.all
+    @users = User.all_except(current_user)
 end
 
 def profile
@@ -50,7 +51,7 @@ end
 def update
      if @user.update(user_params)
         flash[:notice] = "User updated successfully"
-        redirect_to @user
+        redirect_to root_path
     else
       render 'edit'
     end
@@ -58,13 +59,12 @@ end
 
 #deletes user action
 def destroy
-    if @user.destroy
-        flash[:notice] = "Account deleted"
-        redirect_to root_path
-    else
-        flash[:alert] = "Unable to delete account"
-    end
-end
+    @user.destroy
+    session[:user_id] = nil if @user == current_user
+    flash[:notice] = "Account deleted successfully!"
+    redirect_to root_path
+  end
+
 
 
 
@@ -85,5 +85,12 @@ def get_name(user1, user2)
     users = [user1, user2].sort
     "private_#{users[0].id}_#{users[1].id}"
   end
+
+  def require_exact_user
+    if current_user != @user
+       flash[:alert] = "You do not have permission to perform this action"
+          redirect_to root_path
+       end
+ end
 
 end

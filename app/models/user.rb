@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-    validates :username, uniqueness:{ case_sensitive: false }, length:{minimum: 6, maximum:30}
+    validates :username, uniqueness:{ case_sensitive: false }, length:{minimum: 4, maximum:30}
     has_secure_password
     has_one_attached :avatar
   
@@ -8,5 +8,6 @@ class User < ApplicationRecord
     #   end
     scope :all_except, ->(user) { where.not(id: user) }
       after_create_commit { broadcast_append_to "users" }
-      has_many :messages
+      has_many :messages, dependent: :destroy
+      has_many :participants, dependent: :destroy
 end

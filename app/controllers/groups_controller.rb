@@ -1,4 +1,7 @@
 class GroupsController < ApplicationController
+  # before_action :require_user, except: [:index]
+
+
 def index
     @current_user = current_user
     redirect_to '/signin' unless @current_user
@@ -22,8 +25,12 @@ end
 
 def create
     @group = Group.create(name: params["group"]["name"],description: params["group"]["description"],coverPhoto: params["group"]["coverPhoto"])
-      flash[:notice] = "Group created successfully"
+     @group.user = current_user
+     if @group.save
+    flash[:notice] = "Group created successfully"
       redirect_to @group
+     else 
+      render 'new'
   end
 
   def show
@@ -43,5 +50,16 @@ def create
    
     render "index"
   end
+
+  private
+  def require_exact_user
+    if current_user != @user
+       flash[:alert] = "You do not have permission to perform this action"
+          redirect_to root_path
+       end
+ end
+
+end
+
 
 end
