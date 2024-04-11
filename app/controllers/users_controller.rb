@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     before_action :find_user, only: [:profile,:show,:edit,:update, :destroy]
-    before_action :require_user, only: [:profile]
+    before_action :require_user, only: [:profile,:index]
     before_action :require_exact_user, only: [:edit, :update, :destroy]
 #users lists
 def index
