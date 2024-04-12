@@ -25,13 +25,10 @@ end
 
 def create
     @group = Group.create(name: params["group"]["name"],description: params["group"]["description"],coverPhoto: params["group"]["coverPhoto"])
-     @group.user = current_user
-     if @group.save
     flash[:notice] = "Group created successfully"
       redirect_to @group
-     else 
-      render 'new'
   end
+
 
   def show
     @current_user = current_user
@@ -62,4 +59,3 @@ def create
 end
 
 
-end
